@@ -1,4 +1,5 @@
 Summary:	A tools to control CPU frequency
+Summary(pl):	Narzêdzia do kontroli czêstotliwo¶ci procesora
 Name:		cpudyn
 Version:	1.0
 Release:	0.2
@@ -22,6 +23,17 @@ Tested with 2.4, Pentium 3 Speedstep Laptop (Dell Latitude), Pentium 4
 Mobile Laptop (Dell Inspiron), AMD Power Now, Apple iBook, IBM
 Thinkpad. cpudyn is just a user space program, so it will work on
 every processor suppoted by the kernel's cpufreq driver
+
+%description -l pl
+Ten program okntrolujê prêdko¶æ procesorów Intel SpeedStep, Pentium 4
+Mobile oraz PowerPC (o ile kernel zosta³ skompilowany z obs³ug±
+cpufreq).
+
+Program ten zosta³ przetestowany na j±drze 2.4, na Pentium 3 SpeedStep
+(Dell Latitude), Pentium 4 Mobile (Dell Inspiron), AMD Power Now,
+Apple iBook, IBM Thinkpad. cpudyn jest programem userpsace, wiêc
+bêdzie wspó³pracowa³ z ka¿dym procesorem wspieranym przez sterownik
+cpufreq.
 
 %prep
 %setup -q -n %name
