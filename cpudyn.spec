@@ -2,7 +2,7 @@ Summary:	A tools to control CPU frequency
 Summary(pl):	Narzêdzia do kontroli czêstotliwo¶ci procesora
 Name:		cpudyn
 Version:	1.0
-Release:	0.2
+Release:	1
 License:	GPL
 Group:		Daemons
 Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
@@ -41,7 +41,7 @@ cpufreq.
 %build
 %{__make} \
 	CC=%{__cc} \
-	CFLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags} -Wall"
 
 %install
 rm -rf $RPM_BUILD_ROOT
