@@ -1,7 +1,7 @@
 Summary:	A tools to control CPU frequency
 Name:		cpudyn
 Version:	1.0
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Daemons
 Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
@@ -11,6 +11,7 @@ Source2:	%{name}.conf
 URL:		http://mnm.uib.es/~gallir/cpudyn/
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	cpufreqd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
