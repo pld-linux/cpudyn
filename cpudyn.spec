@@ -25,13 +25,13 @@ Thinkpad. cpudyn is just a user space program, so it will work on
 every processor supported by the kernel's cpufreq driver.
 
 %description -l pl
-Ten program okntrolujê prêdko¶æ procesorów Intel SpeedStep, Pentium 4
+Ten program kontroluje prêdko¶æ procesorów Intel SpeedStep, Pentium 4
 Mobile oraz PowerPC (o ile kernel zosta³ skompilowany z obs³ug±
 cpufreq).
 
 Program ten zosta³ przetestowany na j±drze 2.4, na Pentium 3 SpeedStep
 (Dell Latitude), Pentium 4 Mobile (Dell Inspiron), AMD Power Now,
-Apple iBook, IBM Thinkpad. cpudyn jest programem userpsace, wiêc
+Apple iBook, IBM Thinkpad. cpudyn jest programem userspace, wiêc
 bêdzie wspó³pracowa³ z ka¿dym procesorem wspieranym przez sterownik
 cpufreq.
 
@@ -39,7 +39,9 @@ cpufreq.
 %setup -q -n %{name}
 
 %build
-%{__make}
+%{__make} \
+	CC=%{__cc} \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -48,8 +50,7 @@ install -d $RPM_BUILD_ROOT{/sbin,%{_sysconfdir},/etc/rc.d/init.d/,%{_mandir}/man
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/cpudynd
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/cpudyn.conf
 install cpudynd $RPM_BUILD_ROOT/sbin
-bzip2 cpudynd.8
-install cpudynd.8.bz2 %buildroot%_mandir/man8/
+install cpudynd.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -60,3 +61,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cpudyn.conf
 %attr(755,root,root) /sbin/cpudynd
 %attr(754,root,root) /etc/rc.d/init.d/cpudynd
+%{_mandir}/man8/*
