@@ -1,0 +1,61 @@
+#! /bin/sh
+#
+#		Written by Celso Gonzalez <celso@bulma.net>.
+# 
+#		based in skeleton example file provided by Debian.
+#
+# Version:	@(#)cpudyn  0.4.0  30-Jul-2003  celso@bulma.net
+#
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/sbin/cpudynd
+NAME=cpudyn
+DESC=cpudyn
+CONFFILE=/etc/cpudyn.conf
+PIDFILE=/var/run/$NAME.pid
+
+test -x $DAEMON || exit 0
+test -e $CONFFILE || exit 0
+
+# Read the configuration file
+. $CONFFILE
+
+OPTS=""
+if [ ! -z "$INTERVAL" ]; then OPTS="$OPTS -i $INTERVAL"; fi
+if [ ! -z "$CPU_UP" -a ! -z "$CPU_DOWN" ]; then OPTS="$OPTS -p $CPU_UP $CPU_DOWN"; fi
+if [ ! -z "$THROTTLING_LOW" ]; then OPTS="$OPTS -l $THROTTLING_LOW"; fi
+if [ ! -z "$TIMEOUT" ]; then OPTS="$OPTS -t $TIMEOUT"; fi
+if [ ! -z "$DISKS" ]; then OPTS="$OPTS -h $DISKS"; fi
+
+set -e
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC: "
+	start-stop-daemon --start --quiet --pidfile $PIDFILE \
+		--background --make-pidfile --exec $DAEMON -- $OPTS
+	echo "$NAME."
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+		--exec $DAEMON && rm -f $PIDFILE
+	echo "$NAME."
+	;;
+  restart|force-reload)
+	echo -n "Restarting $DESC: "
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+		--exec $DAEMON && rm -f $PIDFILE
+	sleep 1
+	start-stop-daemon --start --quiet --pidfile $PIDFILE \
+		--background --make-pidfile --exec $DAEMON -- $OPTS
+	echo "$NAME."
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
