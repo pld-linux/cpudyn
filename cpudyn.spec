@@ -22,7 +22,7 @@ and PowerPC machines with the cpufreq compiled in the kernel.
 Tested with 2.4, Pentium 3 Speedstep Laptop (Dell Latitude), Pentium 4
 Mobile Laptop (Dell Inspiron), AMD Power Now, Apple iBook, IBM
 Thinkpad. cpudyn is just a user space program, so it will work on
-every processor suppoted by the kernel's cpufreq driver
+every processor supported by the kernel's cpufreq driver.
 
 %description -l pl
 Ten program okntrolujê prêdko¶æ procesorów Intel SpeedStep, Pentium 4
@@ -36,16 +36,14 @@ bêdzie wspó³pracowa³ z ka¿dym procesorem wspieranym przez sterownik
 cpufreq.
 
 %prep
-%setup -q -n %name
+%setup -q -n %{name}
 
 %build
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/sbin,%{_sysconfdir}} \
-	$RPM_BUILD_ROOT/etc/rc.d/init.d \
-	$RPM_BUILD_ROOT%{_mandir}/man8
+install -d $RPM_BUILD_ROOT{/sbin,%{_sysconfdir},/etc/rc.d/init.d/,%{_mandir}/man8}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/cpudynd
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/cpudyn.conf
