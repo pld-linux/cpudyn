@@ -1,18 +1,17 @@
 Summary:	A tools to control CPU frequency
 Summary(pl):	Narzêdzia do kontroli czêstotliwo¶ci procesora
 Name:		cpudyn
-Version:	1.0
+Version:	1.0.1
 Release:	1
 License:	GPL
 Group:		Daemons
 Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
-# Source0-md5:	2922149f624a07b3d6f012a084e89e7a
+# Source0-md5:	670d32eb953f99ba04aee44848864228
 Source1:	%{name}.init
 Source2:	%{name}.conf
 URL:		http://mnm.uib.es/~gallir/cpudyn/
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires:	cpufreqd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
