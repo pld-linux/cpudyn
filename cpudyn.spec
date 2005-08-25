@@ -10,9 +10,11 @@ Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
 Source1:	%{name}.init
 Source2:	%{name}.conf
 URL:		http://mnm.uib.es/~gallir/cpudyn/
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_sbindir	/sbin
 
 %description
 This program control the speed in Intel SpeedStep, Pentium 4 Mobile
@@ -44,12 +46,12 @@ cpufreq.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/sbin,%{_sysconfdir},/etc/rc.d/init.d/,%{_mandir}/man8}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir},/etc/rc.d/init.d/,%{_mandir}/man8}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/cpudynd
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/cpudyn.conf
-install cpudynd $RPM_BUILD_ROOT/sbin
-install cpudynd.8 $RPM_BUILD_ROOT%{_mandir}/man8/
+install cpudynd $RPM_BUILD_ROOT%{_sbindir}
+install cpudynd.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -57,7 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README faq.html
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/cpudyn.conf
-%attr(755,root,root) /sbin/cpudynd
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cpudyn.conf
+%attr(755,root,root) %{_sbindir}/cpudynd
 %attr(754,root,root) /etc/rc.d/init.d/cpudynd
 %{_mandir}/man8/*
