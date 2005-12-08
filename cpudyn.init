@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 #		Written by Celso Gonzalez <celso@bulma.net>.
-# 
+#
 #		based in skeleton example file provided by Debian.
 #
 # Version:	@(#)cpudyn  0.4.0  30-Jul-2003  celso@bulma.net
