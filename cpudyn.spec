@@ -10,6 +10,7 @@ Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
 Source1:	%{name}.init
 Source2:	%{name}.conf
 URL:		http://mnm.uib.es/~gallir/cpudyn/
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
