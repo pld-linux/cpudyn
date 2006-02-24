@@ -2,7 +2,7 @@ Summary:	A tools to control CPU frequency
 Summary(pl):	Narzêdzia do kontroli czêstotliwo¶ci procesora
 Name:		cpudyn
 Version:	1.0.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Daemons
 Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
@@ -10,8 +10,8 @@ Source0:	http://mnm.uib.es/~gallir/cpudyn/download/%{name}-%{version}.tgz
 Source1:	%{name}.init
 Source2:	%{name}.conf
 URL:		http://mnm.uib.es/~gallir/cpudyn/
-Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -41,7 +41,7 @@ cpufreq.
 
 %build
 %{__make} \
-	CC=%{__cc} \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall"
 
 %install
@@ -55,6 +55,16 @@ install cpudynd.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+/sbin/chkconfig --add cpudynd
+%service cpudynd restart
+
+%preun
+if [ "$1" = "0" ]; then
+	%service cpudynd stop
+	/sbin/chkconfig --del cpudynd
+fi
 
 %files
 %defattr(644,root,root,755)
