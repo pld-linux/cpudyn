@@ -1,5 +1,5 @@
 Summary:	A tools to control CPU frequency
-Summary(pl.UTF-8):   Narzędzia do kontroli częstotliwości procesora
+Summary(pl.UTF-8):	Narzędzia do kontroli częstotliwości procesora
 Name:		cpudyn
 Version:	1.0.1
 Release:	2
